@@ -241,7 +241,7 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Country</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user.profile !== null ? user.profile.country : '-'}
+                                {user.profile !== null ? require('country-data').countries[user.profile.country.toUpperCase()].name : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>

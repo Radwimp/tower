@@ -107,7 +107,7 @@ class EnhancedTableComponent extends React.Component<Props> {
     props: any;
     state = {
         order: 'asc',
-        orderBy: 'level',
+        orderBy: this.props.rows[0].id,
         page: 0,
         rowsPerPage: 5,
     };
