@@ -4,11 +4,6 @@ import {
     Grid,
     Paper,
     Switch,
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableRow,
     TextField,
     Theme,
     Typography,
@@ -17,9 +12,8 @@ import {
 } from '@material-ui/core';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import React from "react";
-import { AddLabel } from '../';
+import {AddLabel, EnchancedTable} from '../';
 import {
-    convertToOtp,
     convertToUTCTime,
 } from '../../helpers';
 
@@ -90,6 +84,14 @@ const roleTypes = [
         value: 'Member',
         key: 'member',
     },
+];
+
+const documentsRows = [
+    { id: 'doc_type', alignRight: false, label: 'Doc type' },
+    { id: 'created_at', alignRight: true, label: 'Created_at' },
+    { id: 'doc_number', alignRight: true, label: 'Doc number' },
+    { id: 'doc_expire', alignRight: true, label: 'Doc expire' },
+    { id: 'upload', alignRight: true, label: 'Photos' },
 ];
 
 interface StyleProps extends WithStyles<typeof styles> {
@@ -348,40 +350,7 @@ class UserDataComponent extends React.Component<Props> {
                     <Typography variant="h5" gutterBottom component="h5" style={{ marginTop: 40 }}>
                         Documents
                     </Typography>
-                    <Table className="table-body" padding="none">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Doc type</TableCell>
-                                <TableCell align={"right"}>Created at</TableCell>
-                                <TableCell align={"right"}>Doc number</TableCell>
-                                <TableCell align={"right"}>Doc expire</TableCell>
-                                <TableCell align={"right"}>Photos</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {user.documents.map((document: any, i: number) => {
-                                return (
-                                    <TableRow key={i}>
-                                        <TableCell component="th" scope="row">
-                                            {document.doc_type}
-                                        </TableCell>
-                                        <TableCell align={"right"}>
-                                            {convertToUTCTime(document.created_at)}
-                                        </TableCell>
-                                        <TableCell align={"right"}>
-                                            {document.doc_number}
-                                        </TableCell>
-                                        <TableCell align={"right"}>
-                                            {document.doc_expire}
-                                        </TableCell>
-                                        <TableCell align={"right"}>
-                                            <a href={document.upload.url}>{document.doc_type} image</a>
-                                        </TableCell>
-                                    </TableRow>
-                                )
-                            })}
-                        </TableBody>
-                    </Table>
+                    <EnchancedTable rows={documentsRows} data={user.documents} />
                 </Paper>
                 <Grid container justify={"center"} spacing={40}>
                     <Grid item>
