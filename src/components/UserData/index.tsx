@@ -87,12 +87,14 @@ const roleTypes = [
 ];
 
 const documentsRows = [
-    { id: 'doc_type', alignRight: false, label: 'Doc type' },
-    { id: 'created_at', alignRight: true, label: 'Created_at' },
-    { id: 'doc_number', alignRight: true, label: 'Doc number' },
-    { id: 'doc_expire', alignRight: true, label: 'Doc expire' },
-    { id: 'upload', alignRight: true, label: 'Photos' },
+    { key: 'doc_type', alignRight: false, label: 'Doc type' },
+    { key: 'created_at', alignRight: true, label: 'Created_at' },
+    { key: 'doc_number', alignRight: true, label: 'Doc number' },
+    { key: 'doc_expire', alignRight: true, label: 'Doc expire' },
+    { key: 'upload', alignRight: true, label: 'Photos' },
 ];
+
+const countries = require('country-data').countries;
 
 interface StyleProps extends WithStyles<typeof styles> {
     theme?: Theme;
@@ -157,7 +159,7 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Phone number</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user && user.phones.length > 0 ? this.findPhone(user.phones).number : '-'}
+                                {user.phones.length > 0 ? this.findPhone(user.phones).number : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3} style={{ paddingTop: 5 }}>
@@ -241,7 +243,7 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Country</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user.profile !== null ? require('country-data').countries[user.profile.country.toUpperCase()].name : '-'}
+                                {user.profile !== null ? countries[user.profile.country.toUpperCase()].name : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -395,7 +397,7 @@ class UserDataComponent extends React.Component<Props> {
                     </Grid>
                 </Grid>
             );
-            case 'documents': return (
+            case 'document': return (
                 <Grid item key={i}>
                     <Grid container justify={"space-between"} className={classes.label} style={{ backgroundColor: "#3F51B5" }}>
                         <Typography onClick={(e) => this.openAddLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>

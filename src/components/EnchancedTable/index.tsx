@@ -50,37 +50,37 @@ class EnhancedTableHead extends React.Component<Props> {
         return (
             <TableHead>
                 <TableRow>
-                    {this.props.rows.map((row: {id: string, alignRight: boolean, label: string}) => (
-                        <TableCell
-                            key={row.id}
-                            align={row.alignRight ? 'right' : 'left'}
-                            sortDirection={orderBy === row.id ? order : false}
-                        >
-                            <Tooltip
-                                title="Sort"
-                                placement={row.alignRight ? 'bottom-end' : 'bottom-start'}
-                                enterDelay={300}
+                    {this.props.rows.map((row: {key: string, alignRight: boolean, label: string}) => (
+                            <TableCell
+                                key={row.key}
+                                align={row.alignRight ? 'right' : 'left'}
+                                sortDirection={orderBy === row.key ? order : false}
                             >
-                                <TableSortLabel
-                                    active={orderBy === row.id}
-                                    direction={order}
-                                    onClick={this.createSortHandler(row.id)}
+                                <Tooltip
+                                    title="Sort"
+                                    placement={row.alignRight ? 'bottom-end' : 'bottom-start'}
+                                    enterDelay={300}
                                 >
-                                {row.label}
-                                </TableSortLabel>
-                            </Tooltip>
-                        </TableCell>
-                    ),
-            this,
-        )}
-        </TableRow>
-        </TableHead>
-    );
+                                    <TableSortLabel
+                                        active={orderBy === row.key}
+                                        direction={order}
+                                        onClick={this.createSortHandler(row.key)}
+                                    >
+                                        {row.label}
+                                    </TableSortLabel>
+                                </Tooltip>
+                            </TableCell>
+                        ),
+                        this,
+                    )}
+                </TableRow>
+            </TableHead>
+        );
     }
 }
 
 interface EnchancedTableProps {
-    rows: { id: string; alignRight: boolean; label: string; }[];
+    rows: { key: string; alignRight: boolean; label: string; }[];
     data: any;
 }
 
@@ -107,7 +107,7 @@ class EnhancedTableComponent extends React.Component<Props> {
     props: any;
     state = {
         order: 'asc',
-        orderBy: this.props.rows[0].id,
+        orderBy: this.props.rows[0].key,
         page: 0,
         rowsPerPage: 5,
     };
@@ -149,16 +149,16 @@ class EnhancedTableComponent extends React.Component<Props> {
                         <TableBody>
                             {stableSort(data, getSorting(order, orderBy))
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((n: any) => {
+                                .map((n: any, i: number) => {
                                     return (
-                                        <TableRow>
-                                            {rows.map((row: any) => {
+                                        <TableRow key={i}>
+                                            {rows.map((row: any, index: number) => {
                                                 return (
-                                                    <TableCell component="th" align={row.alignRight ? 'right' : 'left'}>
-                                                        { row.id === 'email' ? (<Link to={`/users/${n.uid}`} className={classes.link}>{n.email}</Link>)
-                                                        : row.id === 'otp' ? (convertToOtp(n.otp) === 'true' ? '2FA' : '-')
-                                                        : row.id === 'upload' ? (<Link to={n.upload.url} className={classes.link}>Image</Link>)
-                                                        : row.id === 'created_at' || row.id === 'validated_at' || row.id === 'updated_at' ? (convertToUTCTime(n[row.id])) : n[row.id]}
+                                                    <TableCell key={index} component="th" align={row.alignRight ? 'right' : 'left'}>
+                                                        { row.key === 'email' ? (<Link to={`/users/${n.uid}`} className={classes.link}>{n.email}</Link>)
+                                                            : row.key === 'otp' ? (convertToOtp(n.otp) === 'true' ? '2FA' : '-')
+                                                                : row.key === 'upload' ? (<Link to={n.upload.url} className={classes.link}>Image</Link>)
+                                                                    : row.key === 'created_at' || row.key === 'validated_at' || row.key === 'updated_at' ? (convertToUTCTime(n[row.key])) : n[row.key]}
                                                     </TableCell>
                                                 )
                                             })
@@ -166,11 +166,11 @@ class EnhancedTableComponent extends React.Component<Props> {
                                         </TableRow>
                                     );
                                 })}
-                                {emptyRows > 0 && (
-                                    <TableRow style={{ height: 49 * emptyRows }}>
-                                        <TableCell colSpan={6} />
-                                    </TableRow>
-                                )}
+                            {emptyRows > 0 && (
+                                <TableRow style={{ height: 49 * emptyRows }}>
+                                    <TableCell colSpan={6} />
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </div>

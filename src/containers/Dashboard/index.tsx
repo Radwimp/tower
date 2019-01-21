@@ -55,11 +55,11 @@ class DashboardScreen extends React.Component<Props, State> {
         const { users, userData } = this.props;
         const { openModal } = this.state;
         const usersRows = [
-            { id: 'email', alignRight: false, label: 'Email' },
-            { id: 'otp', alignRight: true, label: 'Authorization method' },
-            { id: 'level', alignRight: true, label: 'Level' },
-            { id: 'role', alignRight: true, label: 'Role' },
-            { id: 'uid', alignRight: true, label: 'UID' },
+            { key: 'email', alignRight: false, label: 'Email' },
+            { key: 'otp', alignRight: true, label: 'Authorization method' },
+            { key: 'level', alignRight: true, label: 'Level' },
+            { key: 'role', alignRight: true, label: 'Role' },
+            { key: 'uid', alignRight: true, label: 'UID' },
         ];
 
         return (
