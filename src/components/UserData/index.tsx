@@ -24,6 +24,7 @@ interface UserDataProps {
     changeLabelValue: (value: string) => void;
     changeState: (value: string) => void;
     changeRole: (value: string) => void;
+    changeOTP: (value: boolean) => void;
     closeModal: () => void;
     deleteUserLabel: (uid: string, key: string, scope: string) => void;
     newLabelName: string;
@@ -106,7 +107,7 @@ class UserDataComponent extends React.Component<Props> {
     state = {
         userState: this.props.user.state,
         role: this.props.user.role,
-        auth: this.props.user.otp,
+        otp: this.props.user.otp,
         showMore: false,
     };
 
@@ -276,13 +277,13 @@ class UserDataComponent extends React.Component<Props> {
                                     <b>Authorization 2FA</b>
                                 </Typography>
                                 <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                    {this.state.auth ? 'Enable' : 'Disable'}
+                                    {this.state.otp ? 'Enable' : 'Disable'}
                                 </Typography>
                             </Grid>
                             <Grid item>
                                 <Switch
-                                    checked={this.state.auth}
-                                    onChange={this.changeAuth}
+                                    checked={this.state.otp}
+                                    onChange={this.changeUserOTP}
                                     color="primary"
                                 />
                             </Grid>
@@ -446,8 +447,9 @@ class UserDataComponent extends React.Component<Props> {
         this.setState({ role: e.target.value });
     };
 
-    private changeAuth = (e: any) => {
-        this.setState({ auth: e.target.checked });
+    private changeUserOTP = (e: any) => {
+        this.props.changeOTP(e.target.checked);
+        this.setState({ otp: e.target.checked });
     };
 
     private showMoreUserInfo = (e: any) => {
