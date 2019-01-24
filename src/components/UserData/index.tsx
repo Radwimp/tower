@@ -246,7 +246,8 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Country</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user.profile !== null ? countries[user.profile.country.toUpperCase()].name : '-'}
+                                {user.profile !== null ? countries[user.profile.country.toUpperCase()]
+                                    ? countries[user.profile.country.toUpperCase()].name : user.profile.country : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -493,7 +494,7 @@ class UserDataComponent extends React.Component<Props> {
     private findPhone = (phones: [any]) => {
         let max = phones[0];
         phones.forEach((phone: any) => {
-            if (phone.validated_at > max.validated_at) {
+            if (phone.validated_at !== null && phone.validated_at > max.validated_at || max.validated_at === null) {
                 max = phone;
             }
         });
