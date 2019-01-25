@@ -30,4 +30,4 @@ export const addNewLabelReducer = (state = initial, action: AddNewLabelAction) =
               ...state,
           };
     }
-}
+};

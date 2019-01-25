@@ -11,6 +11,7 @@ import {
 } from '../../components';
 import {
     addNewLabel,
+    editLabel,
     AppState,
     changeUserState,
     changeUserRole,
@@ -29,6 +30,7 @@ interface ReduxProps {
 
 interface DispatchProps {
     addNewLabel: typeof addNewLabel;
+    editLabel: typeof editLabel;
     changeUserState: typeof changeUserState;
     changeUserRole: typeof changeUserRole;
     changeUserOTP: typeof changeUserOTP;
@@ -42,7 +44,8 @@ interface OwnProps {
 }
 
 interface UserInfoState {
-    openModal: boolean;
+    openAddLabelModal: boolean;
+    openEditLabelModal: boolean;
     nameLabel: string;
     valueLabel: string;
     scopeLabel: string;
@@ -55,7 +58,8 @@ class UserInfoScreen extends React.Component<Props, UserInfoState> {
         super(props);
 
         this.state = {
-            openModal: false,
+            openAddLabelModal: false,
+            openEditLabelModal: false,
             nameLabel: '',
             valueLabel: '',
             scopeLabel: 'public',
@@ -68,7 +72,8 @@ class UserInfoScreen extends React.Component<Props, UserInfoState> {
 
     public render() {
         const {
-            openModal,
+            openAddLabelModal,
+            openEditLabelModal,
             nameLabel,
             valueLabel,
             scopeLabel,
@@ -79,6 +84,7 @@ class UserInfoScreen extends React.Component<Props, UserInfoState> {
                 { this.props.userData
                     ? (<UserData
                             addNewLabel={this.addLabel}
+                            editLabel={this.editLabel}
                             changeLabelName={this.changeNameForNewLabel}
                             changeLabelScope={this.changeScopeForNewLabel}
                             changeLabelValue={this.changeValueForNewLabel}
@@ -90,8 +96,10 @@ class UserInfoScreen extends React.Component<Props, UserInfoState> {
                             newLabelName={nameLabel}
                             newLabelScope={scopeLabel}
                             newLabelValue={valueLabel}
-                            openAddLabelModal={openModal}
-                            openModal={this.handleOpenModal}
+                            isAddLabelModalOpened={openAddLabelModal}
+                            isEditLabelModalOpened={openEditLabelModal}
+                            openAddLabelModal={this.handleOpenAddLabelModal}
+                            openEditLabelModal={this.handleOpenEditLabelModal}
                             user={this.props.userData}
                         />
                     ) : 'Loading'
@@ -102,13 +110,20 @@ class UserInfoScreen extends React.Component<Props, UserInfoState> {
 
     private handleCloseModal = () => {
         this.setState({
-            openModal: false,
+            openAddLabelModal: false,
+            openEditLabelModal: false,
         });
     };
 
-    private handleOpenModal = (key: string, value: string, scope: string) => {
+    private handleOpenAddLabelModal = () => {
         this.setState({
-            openModal: true,
+            openAddLabelModal: true,
+        });
+    };
+
+    private handleOpenEditLabelModal = (key: string, value: string, scope: string) => {
+        this.setState({
+            openEditLabelModal: true,
             nameLabel: key,
             valueLabel: value,
             scopeLabel: scope,
@@ -156,6 +171,23 @@ class UserInfoScreen extends React.Component<Props, UserInfoState> {
         this.changeValueForNewLabel('');
     };
 
+    private editLabel = () => {
+        const { nameLabel, valueLabel, scopeLabel } = this.state;
+        const { uid } = this.props.userData;
+
+        const requestProps = {
+            key: nameLabel,
+            value: valueLabel,
+            scope: scopeLabel,
+            uid: uid,
+        };
+
+        this.props.editLabel(requestProps);
+        this.props.getUserData({uid: this.props.match.params.uid});
+        this.changeNameForNewLabel('');
+        this.changeValueForNewLabel('');
+    };
+
 
     private changeState = (value: string) => {
         const { uid } = this.props.userData;
@@ -184,6 +216,7 @@ const mapStateToProps: MapStateToProps<ReduxProps, {}, AppState> =
 const mapDispatchToProps: MapDispatchToPropsFunction<DispatchProps, {}> =
     dispatch => ({
         addNewLabel: payload => dispatch(addNewLabel(payload)),
+        editLabel: payload => dispatch(editLabel(payload)),
         changeUserState: payload => dispatch(changeUserState(payload)),
         changeUserRole: payload => dispatch(changeUserRole(payload)),
         changeUserOTP: payload => dispatch(changeUserOTP(payload)),

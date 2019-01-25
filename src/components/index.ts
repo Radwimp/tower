@@ -4,4 +4,4 @@ export * from './NavBar';
 export * from './OrderChart';
 export * from './EnchancedTable';
 export * from './UserData';
-export * from './AddLabelModal';
+export * from './EditLabelModal';

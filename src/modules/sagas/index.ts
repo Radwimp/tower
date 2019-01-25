@@ -5,6 +5,7 @@ import { rootUsersSaga } from './usersSaga';
 import { rootGetUserDataSaga } from './getUserDataSaga';
 import { rootDeleteUserLabelSaga } from './deleteUserLabelSaga';
 import { rootAddUserLabelSaga } from './addUserLabelSaga';
+import { rootEditUserLabelSaga } from './editUserLabelSaga';
 import { rootChangeUserStateSaga } from './changeUserStateSaga';
 import { rootChangeUserRoleSaga } from './changeUserRoleSaga';
 import { rootChangeUserOTPSaga } from './changeUserOTPSaga';
@@ -15,6 +16,7 @@ export function* rootSaga() {
         call(rootUsersSaga),
         call(rootGetUserDataSaga),
         call(rootAddUserLabelSaga),
+        call(rootEditUserLabelSaga),
         call(rootDeleteUserLabelSaga),
         call(rootChangeUserStateSaga),
         call(rootChangeUserRoleSaga),

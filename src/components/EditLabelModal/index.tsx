@@ -36,10 +36,10 @@ interface StyleProps extends WithStyles<typeof styles> {
     theme?: Theme;
 }
 
-interface AddLabelProps {
+interface EditLabelProps {
     modalClose: () => void;
     open: boolean;
-    addNewLabel: (key: string, value: string, scope: string) => void;
+    editLabel: (key: string, value: string, scope: string) => void;
     name: string;
     value: string;
     scope: string;
@@ -48,7 +48,7 @@ interface AddLabelProps {
     handleChangeLabelScope: (scope: string) => void;
 }
 
-type Props = StyleProps & AddLabelProps;
+type Props = StyleProps & EditLabelProps;
 
 const scopeTypes = [
     {
@@ -61,7 +61,7 @@ const scopeTypes = [
     },
 ];
 
-class AddLabelModal extends React.Component<Props> {
+class EditLabelModal extends React.Component<Props> {
     public render() {
         const {
             classes,
@@ -133,14 +133,14 @@ class AddLabelModal extends React.Component<Props> {
                         <Grid container justify={"flex-end"} spacing={8} style={{ marginTop: 20 }}>
 
                             <Grid item>
-                                <Button onClick={(e) => this.cancelAddingNewLabel()}>
+                                <Button onClick={(e) => this.cancelEditingLabel()}>
                                     <Typography variant="h6" component="h6" style={{ color: "#3598D5" }}>
                                         CANCEL
                                     </Typography>
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button onClick={(e) => this.addLabel(name, value, scope)}>
+                                <Button onClick={(e) => this.editLabel(name, value, scope)}>
                                     <Typography variant="h6" component="h6" style={{ color: "#3598D5" }}>
                                         OK
                                     </Typography>
@@ -168,16 +168,16 @@ class AddLabelModal extends React.Component<Props> {
         this.props.modalClose();
     };
 
-    private addLabel = (key: string, value: string, scope: string) => {
-        this.props.addNewLabel(key, value, scope);
+    private editLabel = (key: string, value: string, scope: string) => {
+        this.props.editLabel(key, value, scope);
         this.handleClose();
     };
 
-    private cancelAddingNewLabel = () => {
+    private cancelEditingLabel = () => {
         this.props.handleChangeLabelName('');
         this.props.handleChangeLabelValue('');
         this.handleClose();
     };
 }
 
-export const AddLabel = withStyles(styles)(AddLabelModal);
+export const EditLabel = withStyles(styles)(EditLabelModal);

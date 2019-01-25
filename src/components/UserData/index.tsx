@@ -12,13 +12,14 @@ import {
 } from '@material-ui/core';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import React from "react";
-import {AddLabel, EnchancedTable} from '../';
+import { EditLabel, EnchancedTable } from '../';
 import {
     convertToUTCTime,
 } from '../../helpers';
 
 interface UserDataProps {
-    addNewLabel: (key: string, value: string, scope: string) => void;
+    addNewLabel: () => void;
+    editLabel: (key: string, value: string, scope: string) => void;
     changeLabelName: (value: string) => void;
     changeLabelScope: (value: string) => void;
     changeLabelValue: (value: string) => void;
@@ -30,8 +31,10 @@ interface UserDataProps {
     newLabelName: string;
     newLabelScope: string;
     newLabelValue: string;
-    openAddLabelModal: boolean;
-    openModal: (key: string, value: string, scope: string) => void;
+    isAddLabelModalOpened: boolean;
+    isEditLabelModalOpened: boolean;
+    openAddLabelModal: () => void;
+    openEditLabelModal: (key: string, value: string, scope: string) => void;
     user: any;
 }
 
@@ -115,7 +118,6 @@ class UserDataComponent extends React.Component<Props> {
         const {
             classes,
             user,
-            openAddLabelModal,
             newLabelName,
             newLabelValue,
             newLabelScope,
@@ -325,20 +327,31 @@ class UserDataComponent extends React.Component<Props> {
                     <Grid container justify={"flex-start"} spacing={16}>
                         {user.labels.map((label: any, i: number) => this.getLabelData(label, i, classes))}
                         <Grid item>
-                            <Button onClick={(e) => this.openAddLabelModal('', '', 'public')}>
+                            <Button onClick={(e) => this.openAddLabelModal()}>
                                 <Typography variant="h6" component="h6" style={{ color: "#3598D5" }}>
                                     ADD NEW LABEL
                                 </Typography>
                             </Button>
                         </Grid>
-                        <AddLabel
-                            addNewLabel={this.props.addNewLabel}
+                        <EditLabel
+                            editLabel={this.props.addNewLabel}
                             handleChangeLabelName={this.props.changeLabelName}
                             handleChangeLabelScope={this.props.changeLabelScope}
                             handleChangeLabelValue={this.props.changeLabelValue}
                             modalClose={this.modalClose}
                             name={newLabelName}
-                            open={this.props.openAddLabelModal}
+                            open={this.props.isAddLabelModalOpened}
+                            scope={newLabelScope}
+                            value={newLabelValue}
+                        />
+                        <EditLabel
+                            editLabel={this.props.editLabel}
+                            handleChangeLabelName={this.props.changeLabelName}
+                            handleChangeLabelScope={this.props.changeLabelScope}
+                            handleChangeLabelValue={this.props.changeLabelValue}
+                            modalClose={this.modalClose}
+                            name={newLabelName}
+                            open={this.props.isEditLabelModalOpened}
                             scope={newLabelScope}
                             value={newLabelValue}
                         />
@@ -370,7 +383,7 @@ class UserDataComponent extends React.Component<Props> {
             case 'email': return (
                 <Grid item key={i}>
                     <Grid container justify={"space-between"} className={classes.label} style={{ backgroundColor: "#43A047" }}>
-                        <Typography onClick={(e) => this.openAddLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>
+                        <Typography onClick={(e) => this.openEditLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>
                             email:{label.value}
                         </Typography>
                         <SvgIcon onClick={(e) => this.deleteLabel(user.uid, label.key, label.scope)} className={classes.icon} viewBox="0 0 32 32">
@@ -382,7 +395,7 @@ class UserDataComponent extends React.Component<Props> {
             case 'phone': return (
                 <Grid item key={i}>
                     <Grid container justify={"space-between"} className={classes.label} style={{ backgroundColor: "#009688" }}>
-                        <Typography onClick={(e) => this.openAddLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>
+                        <Typography onClick={(e) => this.openEditLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>
                             phone:{label.value}
                         </Typography>
                         <SvgIcon onClick={(e) => this.deleteLabel(user.uid, label.key, label.scope)} className={classes.icon} viewBox="0 0 32 32">
@@ -394,7 +407,7 @@ class UserDataComponent extends React.Component<Props> {
             case 'document': return (
                 <Grid item key={i}>
                     <Grid container justify={"space-between"} className={classes.label} style={{ backgroundColor: "#3F51B5" }}>
-                        <Typography onClick={(e) => this.openAddLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>
+                        <Typography onClick={(e) => this.openEditLabelModal(label.key, label.value, label.scope)} className={classes.labelName}>
                             document:{label.value}
                         </Typography>
                         <SvgIcon onClick={(e) => this.deleteLabel(user.uid, label.key, label.scope)} className={classes.icon} viewBox="0 0 32 32">
@@ -406,7 +419,7 @@ class UserDataComponent extends React.Component<Props> {
             default: return (
                 <Grid item key={i}>
                     <Grid container justify={"space-between"} className={classes.label} style={{ backgroundColor: "#e0e0e0" }}>
-                        <Typography onClick={(e) => this.openAddLabelModal(label.key, label.value, label.scope)} style={{ paddingTop: 8, color: "#757575", fontSize: 16, marginRight: 7 }}>
+                        <Typography onClick={(e) => this.openEditLabelModal(label.key, label.value, label.scope)} style={{ paddingTop: 8, color: "#757575", fontSize: 16, marginRight: 7 }}>
                             {label.key}
                         </Typography>
                         <SvgIcon onClick={(e) => this.deleteLabel(user.uid, label.key, label.scope)} className={classes.icon} viewBox="0 0 32 32">
@@ -418,8 +431,12 @@ class UserDataComponent extends React.Component<Props> {
         }
     };
 
-    private openAddLabelModal = (key: string, value: string, scope: string) => {
-        this.props.openModal(key, value, scope);
+    private openAddLabelModal = () => {
+        this.props.openAddLabelModal();
+    };
+
+    private openEditLabelModal = (key: string, value: string, scope: string) => {
+        this.props.openEditLabelModal(key, value, scope);
     };
 
     private modalClose = () => {

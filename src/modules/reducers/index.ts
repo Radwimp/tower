@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { addNewLabelReducer, AddNewLabelState } from './addNewLabelReducer';
+import { editLabelReducer, EditLabelState } from './editLabelReducer';
 import { authReducer, AuthState } from './authReducer';
 import { changeUserStateReducer, ChangeUserStateState } from './changeUserStateReducer';
 import { changeUserRoleReducer, ChangeUserRoleState } from './changeUserRoleReducer';
@@ -9,6 +10,7 @@ import { userDataReducer, UserDataState } from './userDataReducer';
 import { usersReducer, UsersState } from './usersReducer';
 
 export * from './addNewLabelReducer';
+export * from './editLabelReducer';
 export * from './authReducer';
 export * from './changeUserStateReducer';
 export * from './changeUserRoleReducer';
@@ -19,6 +21,7 @@ export * from './usersReducer';
 
 export interface AppState {
     addNewLabel: AddNewLabelState;
+    editLabel: EditLabelState;
     auth: AuthState;
     deleteLabel: DeleteLabelState;
     selectedUser: UserDataState;
@@ -30,6 +33,7 @@ export interface AppState {
 
 export const appReducer = combineReducers({
     addNewLabel: addNewLabelReducer,
+    editLabel: editLabelReducer,
     auth: authReducer,
     deleteLabel: deleteLabelReducer,
     selectedUser: userDataReducer,
