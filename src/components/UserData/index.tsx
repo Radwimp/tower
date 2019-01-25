@@ -15,9 +15,10 @@ import React from "react";
 import { EditLabel, EnchancedTable } from '../';
 import {
     convertToUTCTime,
+    findPhone,
 } from '../../helpers';
 
-interface UserDataProps {
+export interface UserDataProps {
     addNewLabel: () => void;
     editLabel: (key: string, value: string, scope: string) => void;
     changeLabelName: (value: string) => void;
@@ -162,7 +163,7 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Phone number</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user.phones.length > 0 ? this.findPhone(user.phones).number : '-'}
+                                {user.phones.length > 0 ? findPhone(user.phones).number : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3} style={{ paddingTop: 5 }}>
@@ -246,8 +247,7 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Country</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user.profile !== null ? countries[user.profile.country.toUpperCase()]
-                                    ? countries[user.profile.country.toUpperCase()].name : user.profile.country : '-'}
+                                {user.profile !== null ? this.displayCountry(user.profile.country) : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -255,7 +255,7 @@ class UserDataComponent extends React.Component<Props> {
                                 <b>Validated at</b>
                             </Typography>
                             <Typography variant="h6" gutterBottom component="h6" style={{ color: "#757575" }}>
-                                {user.phones.length > 0 ? convertToUTCTime(this.findPhone(user.phones).validated_at) : '-'}
+                                {user.phones.length > 0 ? convertToUTCTime(findPhone(user.phones).validated_at) : '-'}
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
@@ -491,15 +491,15 @@ class UserDataComponent extends React.Component<Props> {
         this.setState({ showMore: !this.state.showMore });
     };
 
-    private findPhone = (phones: [any]) => {
-        let max = phones[0];
-        phones.forEach((phone: any) => {
-            if (phone.validated_at !== null && phone.validated_at > max.validated_at || max.validated_at === null) {
-                max = phone;
-            }
-        });
-        return max;
+    private displayCountry = (code: string) => {
+        if (code === 'null') {
+            return '-';
+        } else if (countries[code.toUpperCase()] !== undefined) {
+            return countries[code.toUpperCase()].name;
+        }
+        return code;
     }
 }
+
 
 export const UserData = withStyles(styles)(UserDataComponent);

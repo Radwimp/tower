@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserData Component should render 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <WithStyles(UserDataComponent)
+    addNewLabel={[MockFunction]}
+    changeLabelName={[MockFunction]}
+    changeLabelScope={[MockFunction]}
+    changeLabelValue={[MockFunction]}
+    changeOTP={[MockFunction]}
+    changeRole={[MockFunction]}
+    changeState={[MockFunction]}
+    closeModal={[MockFunction]}
+    deleteUserLabel={[MockFunction]}
+    newLabelName=""
+    newLabelScope="public"
+    newLabelValue=""
+    openAddLabelModal={false}
+    openModal={[MockFunction]}
+    user={
+      Object {
+        "created_at": "2019-01-10T12:14:15Z",
+        "documents": Array [],
+        "email": "admin@barong.io",
+        "labels": Array [
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "email",
+            "scope": "private",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "phone",
+            "scope": "private",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "documents",
+            "scope": "private",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "Public label",
+            "scope": "public",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+        ],
+        "level": 3,
+        "otp": true,
+        "phones": Array [
+          Object {
+            "country": "UA",
+            "number": "380000000000",
+            "validated_at": "2019-01-14T13:54:48.000Z",
+          },
+          Object {
+            "country": "UA",
+            "number": "380111111111",
+            "validated_at": "2019-01-13T13:54:48.000Z",
+          },
+          Object {
+            "country": "UA",
+            "number": 380222222222,
+            "validated_at": null,
+          },
+        ],
+        "profile": Object {
+          "address": "Kievan Rus",
+          "city": "Kiev",
+          "country": "ua",
+          "dob": "2019-01-09",
+          "first_name": "Admin",
+          "last_name": "Barongovich",
+          "metadata": null,
+          "postcode": "007007",
+        },
+        "role": "admin",
+        "state": "active",
+        "uid": "ID3237511380",
+        "updated_at": "2019-01-10T12:25:15Z",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "addNewLabel": [MockFunction],
+      "changeLabelName": [MockFunction],
+      "changeLabelScope": [MockFunction],
+      "changeLabelValue": [MockFunction],
+      "changeOTP": [MockFunction],
+      "changeRole": [MockFunction],
+      "changeState": [MockFunction],
+      "classes": Object {
+        "icon": "UserDataComponent-icon-4",
+        "label": "UserDataComponent-label-3",
+        "labelName": "UserDataComponent-labelName-5",
+        "menu": "UserDataComponent-menu-2",
+        "textField": "UserDataComponent-textField-1",
+      },
+      "closeModal": [MockFunction],
+      "deleteUserLabel": [MockFunction],
+      "newLabelName": "",
+      "newLabelScope": "public",
+      "newLabelValue": "",
+      "openAddLabelModal": false,
+      "openModal": [MockFunction],
+      "user": Object {
+        "created_at": "2019-01-10T12:14:15Z",
+        "documents": Array [],
+        "email": "admin@barong.io",
+        "labels": Array [
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "email",
+            "scope": "private",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "phone",
+            "scope": "private",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "documents",
+            "scope": "private",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+          Object {
+            "created_at": "2019-01-10T12:14:16Z",
+            "key": "Public label",
+            "scope": "public",
+            "updated_at": "2019-01-10T12:14:16Z",
+            "value": "verified",
+          },
+        ],
+        "level": 3,
+        "otp": true,
+        "phones": Array [
+          Object {
+            "country": "UA",
+            "number": "380000000000",
+            "validated_at": "2019-01-14T13:54:48.000Z",
+          },
+          Object {
+            "country": "UA",
+            "number": "380111111111",
+            "validated_at": "2019-01-13T13:54:48.000Z",
+          },
+          Object {
+            "country": "UA",
+            "number": 380222222222,
+            "validated_at": null,
+          },
+        ],
+        "profile": Object {
+          "address": "Kievan Rus",
+          "city": "Kiev",
+          "country": "ua",
+          "dob": "2019-01-09",
+          "first_name": "Admin",
+          "last_name": "Barongovich",
+          "metadata": null,
+          "postcode": "007007",
+        },
+        "role": "admin",
+        "state": "active",
+        "uid": "ID3237511380",
+        "updated_at": "2019-01-10T12:25:15Z",
+      },
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "addNewLabel": [MockFunction],
+        "changeLabelName": [MockFunction],
+        "changeLabelScope": [MockFunction],
+        "changeLabelValue": [MockFunction],
+        "changeOTP": [MockFunction],
+        "changeRole": [MockFunction],
+        "changeState": [MockFunction],
+        "classes": Object {
+          "icon": "UserDataComponent-icon-4",
+          "label": "UserDataComponent-label-3",
+          "labelName": "UserDataComponent-labelName-5",
+          "menu": "UserDataComponent-menu-2",
+          "textField": "UserDataComponent-textField-1",
+        },
+        "closeModal": [MockFunction],
+        "deleteUserLabel": [MockFunction],
+        "newLabelName": "",
+        "newLabelScope": "public",
+        "newLabelValue": "",
+        "openAddLabelModal": false,
+        "openModal": [MockFunction],
+        "user": Object {
+          "created_at": "2019-01-10T12:14:15Z",
+          "documents": Array [],
+          "email": "admin@barong.io",
+          "labels": Array [
+            Object {
+              "created_at": "2019-01-10T12:14:16Z",
+              "key": "email",
+              "scope": "private",
+              "updated_at": "2019-01-10T12:14:16Z",
+              "value": "verified",
+            },
+            Object {
+              "created_at": "2019-01-10T12:14:16Z",
+              "key": "phone",
+              "scope": "private",
+              "updated_at": "2019-01-10T12:14:16Z",
+              "value": "verified",
+            },
+            Object {
+              "created_at": "2019-01-10T12:14:16Z",
+              "key": "documents",
+              "scope": "private",
+              "updated_at": "2019-01-10T12:14:16Z",
+              "value": "verified",
+            },
+            Object {
+              "created_at": "2019-01-10T12:14:16Z",
+              "key": "Public label",
+              "scope": "public",
+              "updated_at": "2019-01-10T12:14:16Z",
+              "value": "verified",
+            },
+          ],
+          "level": 3,
+          "otp": true,
+          "phones": Array [
+            Object {
+              "country": "UA",
+              "number": "380000000000",
+              "validated_at": "2019-01-14T13:54:48.000Z",
+            },
+            Object {
+              "country": "UA",
+              "number": "380111111111",
+              "validated_at": "2019-01-13T13:54:48.000Z",
+            },
+            Object {
+              "country": "UA",
+              "number": 380222222222,
+              "validated_at": null,
+            },
+          ],
+          "profile": Object {
+            "address": "Kievan Rus",
+            "city": "Kiev",
+            "country": "ua",
+            "dob": "2019-01-09",
+            "first_name": "Admin",
+            "last_name": "Barongovich",
+            "metadata": null,
+            "postcode": "007007",
+          },
+          "role": "admin",
+          "state": "active",
+          "uid": "ID3237511380",
+          "updated_at": "2019-01-10T12:25:15Z",
+        },
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
