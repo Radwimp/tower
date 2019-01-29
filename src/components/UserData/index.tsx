@@ -259,7 +259,7 @@ class UserDataComponent extends React.Component<Props> {
                             </Typography>
                         </Grid>
                         <Grid item xs={3}>
-                            {this.state.showMore ? (
+                            {user.profile === null || this.state.showMore ? (
                                 <><Typography variant="h6" gutterBottom component="h6">
                                   <b>Postcode</b>
                                 </Typography>
@@ -292,7 +292,7 @@ class UserDataComponent extends React.Component<Props> {
                             </Grid>
                         </Grid>
                     </Grid>
-                    {this.state.showMore ? this.showMetadata(user.profile.metadata) : null}
+                    {this.state.showMore && user.profile !== null ? this.showMetadata(user.profile.metadata) : null}
                     <Typography variant="h5" gutterBottom component="h5">
                         Labels
                     </Typography>
@@ -417,13 +417,16 @@ class UserDataComponent extends React.Component<Props> {
         let i = 4; //container's number
         grids.push(this.getGrid('City', this.props.user.profile !== null ? this.props.user.profile.city : '-'));
         grids.push(this.getGrid('Address', this.props.user.profile !== null ? this.props.user.profile.address : '-'));
-        for (var key in metadata) {
-            if (metadata.hasOwnProperty(key)) {
-                grids.push(this.getGrid(key, metadata[key]));
-                if (grids.length === 4) {
-                    res.push(this.wrapGrids(grids, i));
-                    grids = [];
-                    i += 1;
+
+        if (metadata !== null) {
+            for (var key in metadata) {
+                if (metadata.hasOwnProperty(key)) {
+                    grids.push(this.getGrid(key, metadata[key]));
+                    if (grids.length === 4) {
+                        res.push(this.wrapGrids(grids, i));
+                        grids = [];
+                        i += 1;
+                    }
                 }
             }
         }
@@ -485,8 +488,12 @@ class UserDataComponent extends React.Component<Props> {
     };
 
     private changeUserOTP = (e: any) => {
-        this.props.changeOTP(e.target.checked);
-        this.setState({ otp: e.target.checked });
+        if (this.state.otp) {
+            this.props.changeOTP(e.target.checked);
+            this.setState({otp: e.target.checked});
+        } else {
+            alert('2FA can only be enabled by the user');
+        }
     };
 
     private showMoreUserInfo = (e: any) => {
