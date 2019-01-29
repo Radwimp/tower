@@ -291,36 +291,7 @@ class UserDataComponent extends React.Component<Props> {
                             </Grid>
                         </Grid>
                     </Grid>
-                    {this.state.showMore ? (
-                        <Grid container justify={"space-between"} style={{marginTop: 20, marginBottom: 40}}>
-                            <Grid item xs={3}>
-                            <Typography variant="h6" gutterBottom component="h6">
-                              <b>City</b>
-                            </Typography>
-                            <Typography variant="h6" gutterBottom component="h6" style={{color: "#757575"}}>
-                                {user.profile !== null ? user.profile.city : '-'}
-                            </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                            <Typography variant="h6" gutterBottom component="h6">
-                              <b>Address</b>
-                            </Typography>
-                            <Typography variant="h6" gutterBottom component="h6" style={{color: "#757575"}}>
-                                {user.profile !== null ? user.profile.address : '-'}
-                            </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                                {this.state.showMore && (
-                                  <Button onClick={(e) => this.showMoreUserInfo(e)} style={{ marginTop: 10 }}>
-                                    <Typography variant="h6" component="h6" style={{ color: "#3598D5" }}>
-                                      LESS USER INFO
-                                    </Typography>
-                                  </Button>
-                                )}
-                            </Grid>
-                            <Grid item xs={3} />
-                        </Grid>
-                    ) : null}
+                    {this.state.showMore ? this.showMetadata(user.profile.metadata) : null}
                     <Typography variant="h5" gutterBottom component="h5">
                         Labels
                     </Typography>
@@ -437,6 +408,59 @@ class UserDataComponent extends React.Component<Props> {
 
     private openEditLabelModal = (key: string, value: string, scope: string) => {
         this.props.openEditLabelModal(key, value, scope);
+    };
+                                        
+    private showMetadata = (metadata: any) => {
+        let grids = [];
+        let res = [];
+        grids.push(this.getGrid('City', this.props.user.profile !== null ? this.props.user.profile.city : '-'));
+        grids.push(this.getGrid('Address', this.props.user.profile !== null ? this.props.user.profile.address : '-'));
+        for (var key in metadata) {
+            if (metadata.hasOwnProperty(key)) {
+                grids.push(this.getGrid(key, metadata[key]));
+                if (grids.length === 4) {
+                    res.push(this.wrapGrids(grids))
+                    grids = [];
+                }
+            }
+        }
+        grids.push(
+            <Grid item xs={3}>
+                <Button onClick={(e) => this.showMoreUserInfo(e)} style={{ marginTop: 10 }}>
+                    <Typography variant="h6" component="h6" style={{ color: "#3598D5" }}>
+                        LESS USER INFO
+                    </Typography>
+                </Button>
+            </Grid>
+        );
+        while (grids.length < 4) {
+            grids.push(
+                <Grid item xs={3} />
+            )
+        }
+        res.push(this.wrapGrids(grids));
+        return res;
+    };
+
+    private wrapGrids = (grids: JSX.Element[]) => {
+       return (
+           <Grid container justify={"space-between"} style={{marginTop: 20, marginBottom: 40}}>
+               {grids}
+           </Grid>
+           );
+       };
+
+    private getGrid = (key: string, value: string) => {
+        return (
+            <Grid item xs={3}>
+                <Typography variant="h6" gutterBottom component="h6">
+                    <b>{key.slice(0, 1).toUpperCase() + key.slice(1)}</b>
+                </Typography>
+                <Typography variant="h6" gutterBottom component="h6" style={{color: "#757575"}}>
+                    {value}
+                </Typography>
+            </Grid>
+        )
     };
 
     private modalClose = () => {
